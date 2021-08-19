@@ -2,8 +2,8 @@ package com.wenance.Challenge.wenance.Challenge.Dao;
 
 import com.wenance.Challenge.wenance.Challenge.domain.DifferencePercentageAveragngeValueMaximum;
 import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
-
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.Date;
 import java.util.List;
 
@@ -26,5 +26,10 @@ public interface WenanceChallengeDao {
     public WenanceChallenge findByCurr1AndAndDate (String currency, Date date);
 
     public DifferencePercentageAveragngeValueMaximum findByCurr1AndDateBetween (String currency, Date startDate, Date endDate);
+
+    public Page<WenanceChallenge> findByCurr1ContainingAndDate(String currency, Date date, Pageable pageable);
+
+    public Page<WenanceChallenge>findByCurr1Containing(String currency, Pageable pageable);
+
 
 }

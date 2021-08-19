@@ -14,8 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
+import java.util.*;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Validated
 @RequestMapping(value = "/currency")
@@ -32,7 +37,7 @@ public class WenanceChallengeApi {
     @GetMapping(value ="/GetPriceBitcoinEthereumTimestamp")
     public ResponseEntity<WenanceChallenge> GetPriceBitcoinEthereumTimestamp
             (@RequestParam(required = true)  String currency,
-             @RequestParam(required = true) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date date, HttpServletResponse respons)
+             @RequestParam(required = true) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date date)
             throws EntityNotFoundException {
         WenanceChallenge responseEntity = wenanceChallengeService.findByCurr1AndAndDate(currency, date);
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
@@ -43,9 +48,75 @@ public class WenanceChallengeApi {
     public ResponseEntity<DifferencePercentageAveragngeValueMaximum> GetDifferencePercentageAverageValueMaximum
             (@RequestParam(required = true)  String currency,
              @RequestParam(required = true) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startDate,
-             @RequestParam(required = true) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date endDate, HttpServletResponse respons)
+             @RequestParam(required = true) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date endDate)
             throws EntityNotFoundException {
         DifferencePercentageAveragngeValueMaximum responseEntity = wenanceChallengeService.findByCurr1AndDateBetween(currency, startDate, endDate);
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
     }
+
+    @GetMapping(value ="/getAllBitcoinEthereum")
+    public ResponseEntity<Map<String, Object>>  getAllBitcoinEthereum(
+            @RequestParam(required = true)  String currency,
+            @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date dateReport,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) throws EntityNotFoundException {
+
+        List<WenanceChallenge> WenanceChallengeList = new ArrayList<WenanceChallenge>();
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<WenanceChallenge> pageWenanceChallenge;
+        if (dateReport == null)
+            pageWenanceChallenge = wenanceChallengeService.findByCurr1Containing(currency, paging);
+        else
+            pageWenanceChallenge = wenanceChallengeService.findByCurr1ContainingAndDate(currency, dateReport, paging);
+
+        WenanceChallengeList = pageWenanceChallenge.getContent();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("tutorials", WenanceChallengeList);
+        response.put("currentPage", pageWenanceChallenge.getNumber());
+        response.put("totalItems", pageWenanceChallenge.getTotalElements());
+        response.put("totalPages", pageWenanceChallenge.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+
+    }
+
+    @GetMapping(value = "/getAllBitcoinEthereums")
+    public ResponseEntity<Map<String, Object>>  getAllBitcoinEthereums (
+         @RequestParam(required = true)  String currency,
+         @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date date,
+         @RequestParam(defaultValue = "0") int page,
+         @RequestParam(defaultValue = "3") int size
+    ) throws EntityNotFoundException {
+        logger.info("Onboarding Controller - getAllWithFilter With Filter Init ;");
+
+        try {
+            List<WenanceChallenge> WenanceChallengeList = new ArrayList<WenanceChallenge>();
+            Pageable paging = PageRequest.of(page, size);
+
+            Page<WenanceChallenge> pageWenanceChallenge;
+            if (date == null)
+                pageWenanceChallenge = wenanceChallengeService.findByCurr1Containing(currency, paging);
+            else
+                pageWenanceChallenge = wenanceChallengeService.findByCurr1ContainingAndDate(currency, date, paging);
+
+            WenanceChallengeList = pageWenanceChallenge.getContent();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("tutorials", WenanceChallengeList);
+            response.put("currentPage", pageWenanceChallenge.getNumber());
+            response.put("totalItems", pageWenanceChallenge.getTotalElements());
+            response.put("totalPages", pageWenanceChallenge.getTotalPages());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
 }

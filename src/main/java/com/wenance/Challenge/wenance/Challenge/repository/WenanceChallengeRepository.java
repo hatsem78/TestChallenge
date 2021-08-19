@@ -6,7 +6,8 @@ import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.Date;
 
 public interface WenanceChallengeRepository extends JpaRepository<WenanceChallenge, Long> {
@@ -21,4 +22,7 @@ public interface WenanceChallengeRepository extends JpaRepository<WenanceChallen
             )
     DifferencePercentageAveragngeValueMaximum findByCurr1AndDateBetween(@Param("currency") String currency, @Param("timeStart") Date timeStart, @Param("timeEned") Date timeEnd);
 
+    Page<WenanceChallenge> findByCurr1Containing(String currency,Pageable pageable);
+    Page<WenanceChallenge> findByCurr1ContainingAndDate(String currency, Date date, Pageable pageable);
 }
+

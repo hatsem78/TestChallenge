@@ -4,6 +4,8 @@ import com.wenance.Challenge.wenance.Challenge.domain.DifferencePercentageAverag
 import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
 import com.wenance.Challenge.wenance.Challenge.repository.WenanceChallengeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,5 +70,15 @@ public class WenanceChallengeDaoImpl implements WenanceChallengeDao {
     @Override
     public DifferencePercentageAveragngeValueMaximum findByCurr1AndDateBetween(String currency, Date startDate, Date endDate) {
         return wenanceChallengeRepository.findByCurr1AndDateBetween(currency, startDate, endDate) ;
+    }
+
+    @Override
+    public Page<WenanceChallenge> findByCurr1ContainingAndDate(String currency, Date date, Pageable pageable) {
+        return wenanceChallengeRepository.findByCurr1ContainingAndDate(currency, date, pageable) ;
+    }
+
+    @Override
+    public Page<WenanceChallenge> findByCurr1Containing(String currency, Pageable pageable) {
+        return wenanceChallengeRepository.findByCurr1Containing(currency, pageable);
     }
 }
