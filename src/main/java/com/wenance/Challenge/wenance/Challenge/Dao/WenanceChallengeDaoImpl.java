@@ -3,6 +3,7 @@ package com.wenance.Challenge.wenance.Challenge.Dao;
 import com.wenance.Challenge.wenance.Challenge.domain.DifferencePercentageAveragngeValueMaximum;
 import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
 import com.wenance.Challenge.wenance.Challenge.repository.WenanceChallengeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-
+@Service
 public class WenanceChallengeDaoImpl implements WenanceChallengeDao {
 
+    @Autowired
     private WenanceChallengeRepository wenanceChallengeRepository;
 
     @Override
@@ -56,5 +58,10 @@ public class WenanceChallengeDaoImpl implements WenanceChallengeDao {
     @Transactional(readOnly = true)
     public List<WenanceChallenge> ListWenanceChallenge() {
         return (List<WenanceChallenge>) wenanceChallengeRepository.findAll();
+    }
+
+    @Override
+    public WenanceChallenge findByCurr1AndAndDate(String currency, Date date) {
+        return wenanceChallengeRepository.findByCurr1AndAndDate(currency, date) ;
     }
 }

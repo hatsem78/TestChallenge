@@ -2,16 +2,20 @@ package com.wenance.Challenge.wenance.Challenge.domain;
 
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
 @Entity
-@Table(name = "WenanceChallenge")
+@Table(name="wenance_challenge")
+@Data
+@Accessors(chain=true)
 public class WenanceChallenge implements Serializable {
 
     private static final long serialVersionUID = 1L;

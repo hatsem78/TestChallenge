@@ -3,7 +3,7 @@ Wenance Challenge
 
 
 # Creaciòn de la tabla
-    CREATE TABLE `test`.`WenanceChallenge` (
+    CREATE TABLE `test`.`wenanceChallenge` (
     `id_wenance_challenge` INT NOT NULL AUTO_INCREMENT,
     `lprice` DOUBLE NULL,
     `curr1` VARCHAR(45) NULL,

@@ -12,7 +12,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
  */
 @Configuration
 @EnableScheduling
-@ComponentScan("wenanceChallenge")
+@ComponentScan("Application")
 public class SchedulerConfig implements SchedulingConfigurer {
     private final int POOL_SIZE = 10;
 
@@ -20,7 +20,7 @@ public class SchedulerConfig implements SchedulingConfigurer {
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(POOL_SIZE);
-        threadPoolTaskScheduler.setThreadNamePrefix("my-scheduled-task-pool-");
+        threadPoolTaskScheduler.setThreadNamePrefix("wanace-scheduled-task-pool-");
         threadPoolTaskScheduler.initialize();
 
         scheduledTaskRegistrar.setTaskScheduler(threadPoolTaskScheduler);

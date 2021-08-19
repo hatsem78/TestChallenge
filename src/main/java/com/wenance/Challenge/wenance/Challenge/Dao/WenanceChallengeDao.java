@@ -23,4 +23,6 @@ public interface WenanceChallengeDao {
 
     public List<WenanceChallenge> ListWenanceChallenge();
 
+    public WenanceChallenge findByCurr1AndAndDate (String currency, Date date);
+
 }

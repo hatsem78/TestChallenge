@@ -18,9 +18,16 @@ public class ScheduledTasksTest {
     ScheduledTasks tasks;
 
     @Test
-    public void scheduleTaskWithFixedRate() {
+    public void scheduleTaskTenSecondsETH() {
         await().atMost(Duration.TEN_SECONDS).untilAsserted(() -> {
-            verify(tasks, atLeast(1)).scheduleTaskTenSeconds();
+            verify(tasks, atLeast(1)).scheduleTaskTenSecondsETH();
+        });
+    }
+
+    @Test
+    public void scheduleTaskTenSecondsBTC() {
+        await().atMost(Duration.TEN_SECONDS).untilAsserted(() -> {
+            verify(tasks, atLeast(1)).scheduleTaskTenSecondsBTC();
         });
     }
 }
