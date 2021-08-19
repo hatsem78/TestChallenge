@@ -64,4 +64,9 @@ public class WenanceChallengeDaoImpl implements WenanceChallengeDao {
     public WenanceChallenge findByCurr1AndAndDate(String currency, Date date) {
         return wenanceChallengeRepository.findByCurr1AndAndDate(currency, date) ;
     }
+
+    @Override
+    public DifferencePercentageAveragngeValueMaximum findByCurr1AndDateBetween(String currency, Date startDate, Date endDate) {
+        return wenanceChallengeRepository.findByCurr1AndDateBetween(currency, startDate, endDate) ;
+    }
 }

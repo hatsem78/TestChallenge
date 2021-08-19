@@ -49,23 +49,18 @@ public class WenanceChallengeApiTest {
     }
 
     @Test
-    public void testGetFoods() {
+    public void GetPriceBitcoinEthereumTimestamp() {
         /*findByCurr1AndAndDate*/
         Response response = RestAssured.when().get("/GetPriceBitcoinEthereumTimestamp/ETH/2021-08-18 19:07:11");
 
         assertEquals("200 must be returned", HttpStatus.OK.value(), response.statusCode());
     }
-    /*@Test
-    public void givenMovieServiceWhenQueriedWithAnIdThenGetExpectedMovie() {
 
-        WenanceChallenge wenanceChallenge = new WenanceChallenge("BTC", "USD", new Date(), 44820.7);
-        wenanceChallengeDao.WenanceChallengeAdd(wenanceChallenge);
-        when(wenanceChallengeDao.findByLprice(44820.7))
-                .thenReturn(wenanceChallenge);
+    @Test
+    public void testGetFoods() {
+        /*findByCurr1AndAndDate*/
+        Response response = RestAssured.when().get("/GetDifferencePercentageAverageValueMaximum/ETH/2021-08-18 19:07:11/2021-08-18 19:08:00");
 
-        when().get(String.format("http://localhost:%s/movies/100", port))
-                .then()
-                .statusCode(is(200))
-                .body(containsString("Hello World!".toLowerCase()));
-    }*/
+        assertEquals("200 must be returned", HttpStatus.OK.value(), response.statusCode());
+    }
 }

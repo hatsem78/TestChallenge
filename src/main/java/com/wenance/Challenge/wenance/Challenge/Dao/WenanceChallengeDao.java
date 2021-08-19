@@ -25,4 +25,6 @@ public interface WenanceChallengeDao {
 
     public WenanceChallenge findByCurr1AndAndDate (String currency, Date date);
 
+    public DifferencePercentageAveragngeValueMaximum findByCurr1AndDateBetween (String currency, Date startDate, Date endDate);
+
 }

@@ -1,6 +1,7 @@
 package com.wenance.Challenge.wenance.Challenge.rest;
 
 import com.wenance.Challenge.wenance.Challenge.Dao.WenanceChallengeDao;
+import com.wenance.Challenge.wenance.Challenge.domain.DifferencePercentageAveragngeValueMaximum;
 import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
 import com.wenance.Challenge.wenance.Challenge.util.CalorieTrackingUtils;
 import com.wenance.Challenge.wenance.Challenge.util.EntityNotFoundException;
@@ -34,6 +35,17 @@ public class WenanceChallengeApi {
              @RequestParam(required = true) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date date, HttpServletResponse respons)
             throws EntityNotFoundException {
         WenanceChallenge responseEntity = wenanceChallengeService.findByCurr1AndAndDate(currency, date);
+        return new ResponseEntity<>(responseEntity, HttpStatus.OK);
+    }
+
+
+    @GetMapping(value ="/GetDifferencePercentageAverageValueMaximum")
+    public ResponseEntity<DifferencePercentageAveragngeValueMaximum> GetDifferencePercentageAverageValueMaximum
+            (@RequestParam(required = true)  String currency,
+             @RequestParam(required = true) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startDate,
+             @RequestParam(required = true) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date endDate, HttpServletResponse respons)
+            throws EntityNotFoundException {
+        DifferencePercentageAveragngeValueMaximum responseEntity = wenanceChallengeService.findByCurr1AndDateBetween(currency, startDate, endDate);
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
     }
 }
