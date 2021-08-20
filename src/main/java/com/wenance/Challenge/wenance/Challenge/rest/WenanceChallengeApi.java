@@ -3,6 +3,8 @@ package com.wenance.Challenge.wenance.Challenge.rest;
 import com.wenance.Challenge.wenance.Challenge.Dao.WenanceChallengeDao;
 import com.wenance.Challenge.wenance.Challenge.domain.DifferencePercentageAveragngeValueMaximum;
 import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
+import com.wenance.Challenge.wenance.Challenge.response.ResponseRequest;
+import com.wenance.Challenge.wenance.Challenge.response.WenanceChallengeResponse;
 import com.wenance.Challenge.wenance.Challenge.util.CalorieTrackingUtils;
 import com.wenance.Challenge.wenance.Challenge.util.EntityNotFoundException;
 import org.slf4j.Logger;
@@ -39,7 +41,19 @@ public class WenanceChallengeApi {
             @RequestParam(required = true)  String currency,
             @RequestParam(required = true) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date date
     ) throws EntityNotFoundException {
+
         WenanceChallenge responseEntity = wenanceChallengeDaosService.findByCurr1AndAndDate(currency, date);
+
+        if(responseEntity == null) {
+            ResponseRequest documentResponse = new ResponseRequest(
+                    400,
+                    "No se encontron informaciòn para los parametros: currency: " + currency + " date:" +  date
+            );
+            ResponseEntity responseEntitys = new ResponseEntity<ResponseRequest>(documentResponse, HttpStatus.BAD_REQUEST);
+
+            return responseEntitys;
+        }
+
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
     }
 

@@ -2,6 +2,7 @@ package com.wenance.Challenge.wenance.Challenge.Dao;
 
 import com.wenance.Challenge.wenance.Challenge.domain.DifferencePercentageAveragngeValueMaximum;
 import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
+import com.wenance.Challenge.wenance.Challenge.response.WenanceChallengeResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,8 +15,6 @@ public interface WenanceChallengeDao {
 
     /* obtener el precio del Bitcoin o the Etherem en cierto timestamp */
     WenanceChallenge getPriceBicoinEtherem(String currency, Date date);
-
-    public List<WenanceChallenge> getAllWenanceChallengeFilterDate(Date date);
 
     public Boolean WenanceChallengeAdd(WenanceChallenge wenanceChallenge);
 

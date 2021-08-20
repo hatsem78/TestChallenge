@@ -1,42 +1,52 @@
 package com.wenance.Challenge.wenance.Challenge;
 
+import com.wenance.Challenge.wenance.Challenge.Dao.WenanceChallengeDao;
 import com.wenance.Challenge.wenance.Challenge.domain.DifferencePercentageAveragngeValueMaximum;
+import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
+import com.wenance.Challenge.wenance.Challenge.repository.WenanceChallengeRepository;
 import com.wenance.Challenge.wenance.Challenge.service.WenanceChallengeDaoImplService;
 import org.junit.Assert;
-import com.wenance.Challenge.wenance.Challenge.Dao.WenanceChallengeDao;
-import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
-
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.io.IOException;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 
 @SpringBootTest
 public class WenanceChallengeServiceUnitTests {
 
-    @InjectMocks
-    private WenanceChallengeDaoImplService wenanceChallengeDaoService;
+    @Mock
+    WenanceChallengeDaoImplService wenanceChallengeDaoServices = new WenanceChallengeDaoImplService();
 
     @Mock
-    private WenanceChallengeDao wenanceChallengeDaoServices;
+    private WenanceChallengeDao wenanceChallengeDaoServicess;
+
+    @MockBean
+    WenanceChallengeRepository wenanceChallengeRepository;
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
+        WenanceChallenge CURRENCY1 = new WenanceChallenge("BTC", "USD", new Date(), 44820.7);
+        WenanceChallenge CURRENCY2 = new WenanceChallenge("BTC", "USD", new Date(), 200.0);
+        WenanceChallenge CURRENCY3 = new WenanceChallenge("BTC", "USD", new Date(), 300.0);
+        WenanceChallenge wenanceChallenge = new WenanceChallenge("BTC", "USD", new Date(), 44820.7);
+        wenanceChallengeRepository.save(CURRENCY1);
+        wenanceChallengeRepository.save(CURRENCY2);
+        wenanceChallengeRepository.save(CURRENCY3);
     }
+
+
 
     @Test
     public void findByLprice() {
         WenanceChallenge wenanceChallenge = addCurrencyTest();
+
         Mockito.when(wenanceChallengeDaoServices.findByLprice(44820.7))
                 .thenReturn(wenanceChallenge);
 
@@ -58,18 +68,6 @@ public class WenanceChallengeServiceUnitTests {
     }
 
     @Test
-    public void getAllWenanceChallengeFilterDate() {
-        WenanceChallenge wenanceChallenge = addCurrencyTest();
-
-        Mockito.when(wenanceChallengeDaoServices.getAllWenanceChallengeFilterDate(wenanceChallenge.getDate()))
-                .thenReturn((List<WenanceChallenge>) wenanceChallenge);
-
-        List<WenanceChallenge> result = wenanceChallengeDaoServices.getAllWenanceChallengeFilterDate(wenanceChallenge.getDate());
-
-        Assert.assertEquals(wenanceChallenge.getCurr1().toLowerCase(), result.get(0).getCurr1().toLowerCase());
-    }
-
-    @Test
     public void findByCurr1AndAndDate() {
         WenanceChallenge wenanceChallenge = addCurrencyTest();
 
@@ -86,7 +84,19 @@ public class WenanceChallengeServiceUnitTests {
     public void DifferencePercentageAveragngeValueMaximum() {
         WenanceChallenge wenanceChallenge = addCurrencyTest();
 
+        DifferencePercentageAveragngeValueMaximum test = new DifferencePercentageAveragngeValueMaximum(
+                wenanceChallenge.getCurr1(),
+                wenanceChallenge.getLprice(),
+                wenanceChallenge.getLprice(),
+                wenanceChallenge.getLprice()
+        );
 
+        Mockito.when(wenanceChallengeDaoServices.DifferencePercentageAveragngeValueMaximum(
+                wenanceChallenge.getCurr1(),
+                wenanceChallenge.getDate(),
+                wenanceChallenge.getDate()
+        ))
+                .thenReturn(test);
 
         DifferencePercentageAveragngeValueMaximum result =
                 wenanceChallengeDaoServices.DifferencePercentageAveragngeValueMaximum(
@@ -94,25 +104,18 @@ public class WenanceChallengeServiceUnitTests {
                         wenanceChallenge.getDate(),
                         wenanceChallenge.getDate()
                 );
-        Mockito.when(wenanceChallengeDaoServices.DifferencePercentageAveragngeValueMaximum(
-                wenanceChallenge.getCurr1(),
-                wenanceChallenge.getDate(),
-                wenanceChallenge.getDate())
-        )
-                .thenReturn(result);
-
-        Assert.assertEquals(wenanceChallenge.getCurr1().toLowerCase(), result.getCurrency());
+        Assert.assertEquals(wenanceChallenge.getCurr1().toLowerCase(), result.getCurrency().toLowerCase());
     }
 
     @Test
     public void getCurrencyMaxDate() {
         WenanceChallenge wenanceChallenge = addCurrencyTest();
 
-
-        WenanceChallenge result = wenanceChallengeDaoServices.getCurrencyMaxDate(wenanceChallenge.getCurr1());
-
         Mockito.when(wenanceChallengeDaoServices.getCurrencyMaxDate(wenanceChallenge.getCurr1()))
                 .thenReturn(wenanceChallenge);
+        WenanceChallenge result = wenanceChallengeDaoServices.getCurrencyMaxDate(wenanceChallenge.getCurr1());
+
+
 
         Assert.assertEquals(wenanceChallenge.getCurr1().toLowerCase(), result.getCurr1().toLowerCase());
     }
@@ -120,7 +123,7 @@ public class WenanceChallengeServiceUnitTests {
 
     private WenanceChallenge addCurrencyTest() {
         WenanceChallenge wenanceChallenge = new WenanceChallenge("BTC", "USD", new Date(), 44820.7);
-        wenanceChallengeDaoServices.WenanceChallengeAdd(wenanceChallenge);
+        wenanceChallengeRepository.save(wenanceChallenge);
         return wenanceChallenge;
     }
 

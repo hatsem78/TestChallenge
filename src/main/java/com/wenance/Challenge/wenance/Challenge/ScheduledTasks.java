@@ -45,15 +45,14 @@ public class ScheduledTasks {
     @Transactional()
     public void scheduleTaskTenSecondsETH() throws IOException {
         logger.info("scheduleTaskTenSecondsETH Rate Task :: scheduleTaskTenSeconds", dateTimeFormatter.format(LocalDateTime.now()) );
-
-        //task("https://cex.io/api/last_price/ETH/USD");
+        task("https://cex.io/api/last_price/ETH/USD");
     }
 
     @Scheduled(cron = "0/10 * * * * *")
     @Transactional()
     public void scheduleTaskTenSecondsBTC() throws IOException {
         logger.info("scheduleTaskTenSecondsBTC Rate Task :: scheduleTaskTenSeconds", dateTimeFormatter.format(LocalDateTime.now()) );
-        //task("https://cex.io/api/last_price/BTC/USD");
+        task("https://cex.io/api/last_price/BTC/USD");
     }
 
     public void task(String url) throws IOException {

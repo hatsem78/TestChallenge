@@ -38,39 +38,33 @@ public class WenanceChallengeDaoImplService implements WenanceChallengeDao {
     private WenanceChallengeRepository wenanceChallengeRepository;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public WenanceChallenge getPriceBicoinEtherem(String currency, Date date) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<WenanceChallenge> getAllWenanceChallengeFilterDate(Date date) {
-        return null;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Boolean WenanceChallengeAdd(WenanceChallenge wenanceChallenge) {
         wenanceChallengeRepository.save(wenanceChallenge);
         return true;
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public WenanceChallenge findByLprice(Double lprice) {
         return wenanceChallengeRepository.findByLprice(lprice);
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<WenanceChallenge> ListWenanceChallenge() {
         return (List<WenanceChallenge>) wenanceChallengeRepository.findAll();
     }
 
     @Override
     public WenanceChallenge findByCurr1AndAndDate(String currency, Date date) {
-        return wenanceChallengeRepository.findByCurr1AndAndDate(currency, date) ;
+        return wenanceChallengeRepository.findByCurr1AndAndDate(currency, date);
     }
 
     @Override

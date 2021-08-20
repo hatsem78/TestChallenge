@@ -20,15 +20,9 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class WenanceChallengeApiTest {
 
-    @InjectMocks
-    private WenanceChallengeDao wenanceChallengeService;
-
-    @Mock
-    private WenanceChallengeDao wenanceChallengeDao;
-
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
     @LocalServerPort
@@ -42,14 +36,14 @@ public class WenanceChallengeApiTest {
 
     @Test
     public void GetPriceBitcoinEthereumTimestamp() {
-        Response response = RestAssured.when().get("/GetPriceBitcoinEthereumTimestamp/ETH/2021-08-18 19:07:11");
+        Response response = RestAssured.when().get("/currency/GetPriceBitcoinEthereumTimestamp?currency=ETH&date=2021-08-18 19:07:11");
 
         assertEquals("200 must be returned", HttpStatus.OK.value(), response.statusCode());
     }
 
     @Test
     public void GetDifferencePercentageAverageValueMaximum() {
-        Response response = RestAssured.when().get("/GetDifferencePercentageAverageValueMaximum/ETH/2021-08-18 19:07:11/2021-08-18 19:08:00");
+        Response response = RestAssured.when().get("/currency/GetDifferencePercentageAverageValueMaximum?startDate=2021-08-18 19:07:11&endDate=2021-08-18 19:08:00&currency=BTC");
 
         assertEquals("200 must be returned", HttpStatus.OK.value(), response.statusCode());
     }
@@ -57,21 +51,21 @@ public class WenanceChallengeApiTest {
 
     @Test
     public void getAllBitcoinEthereumCurrencyAndDate() {
-        Response response = RestAssured.when().get("http://localhost:9080/currency/getAllBitcoinEthereum?dateReport=2021-08-18 19:07:11&currency=BTC");
+        Response response = RestAssured.when().get("/currency/getAllBitcoinEthereum?dateReport=2021-08-18 19:07:11&currency=BTC");
 
         assertEquals("200 must be returned", HttpStatus.OK.value(), response.statusCode());
     }
 
     @Test
-    public void getAllBitcoinEthereumCurrency() {
-        Response response = RestAssured.when().get("http://localhost:9080/currency/getAllBitcoinEthereum?currency=BTC");
+    public void getAllBitcoinEthereum() {
+        Response response = RestAssured.when().get("/currency/getAllBitcoinEthereum?currency=BTC");
 
         assertEquals("200 must be returned", HttpStatus.OK.value(), response.statusCode());
     }
 
     @Test
     public void convertBTCOrETHToUSD() {
-        Response response = RestAssured.when().get("http://localhost:9080/currency/convertBTCOrETHToUSD?currency=BTC&amnt=2.2");
+        Response response = RestAssured.when().get("/currency/convertBTCOrETHToUSD?currency=BTC&amnt=2.2");
 
         assertEquals("200 must be returned", HttpStatus.OK.value(), response.statusCode());
     }
