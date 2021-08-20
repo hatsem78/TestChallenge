@@ -2,7 +2,6 @@ package com.wenance.Challenge.wenance.Challenge;
 
 import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
 import com.wenance.Challenge.wenance.Challenge.repository.WenanceChallengeRepository;
-import com.wenance.Challenge.wenance.Challenge.service.WenanceChallengeService;
 import net.minidev.json.JSONObject;
 
 import org.apache.http.HttpEntity;
@@ -59,7 +58,6 @@ public class ScheduledTasks {
 
     public void task(String url) throws IOException {
         logger.info("scheduleTaskTenSecondsETH Rate Task :: scheduleTaskTenSeconds", dateTimeFormatter.format(LocalDateTime.now()) );
-        WenanceChallengeService wenanceChallengeService;
         HttpGet get = new HttpGet(url);
         CloseableHttpClient httpClient = HttpClients.createDefault();
         String bodyResponse = "";

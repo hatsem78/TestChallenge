@@ -24,5 +24,16 @@ public interface WenanceChallengeRepository extends JpaRepository<WenanceChallen
 
     Page<WenanceChallenge> findByCurr1Containing(String currency,Pageable pageable);
     Page<WenanceChallenge> findByCurr1ContainingAndDate(String currency, Date date, Pageable pageable);
+
+    @Query(
+        value="SELECT  new com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge(curr1, curr2, date, lprice ) " +
+            " FROM WenanceChallenge " +
+            " where curr1 = :currency  and date = (" +
+            " select max(date) FROM WenanceChallenge )"
+    )
+
+
+    WenanceChallenge findByCurr1(String currency);
+
 }
 

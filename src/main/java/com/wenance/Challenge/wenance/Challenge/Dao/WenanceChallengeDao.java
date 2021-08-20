@@ -4,16 +4,16 @@ import com.wenance.Challenge.wenance.Challenge.domain.DifferencePercentageAverag
 import com.wenance.Challenge.wenance.Challenge.domain.WenanceChallenge;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface WenanceChallengeDao {
+
     /* obtener el precio del Bitcoin o the Etherem en cierto timestamp */
     WenanceChallenge getPriceBicoinEtherem(String currency, Date date);
-
-    public DifferencePercentageAveragngeValueMaximum differencePercentageAveragngeValueMaximum(Date startDate, Date endDate);
-
-    public List<WenanceChallenge> getAllWenanceChallenge();
 
     public List<WenanceChallenge> getAllWenanceChallengeFilterDate(Date date);
 
@@ -25,11 +25,15 @@ public interface WenanceChallengeDao {
 
     public WenanceChallenge findByCurr1AndAndDate (String currency, Date date);
 
-    public DifferencePercentageAveragngeValueMaximum findByCurr1AndDateBetween (String currency, Date startDate, Date endDate);
+    public DifferencePercentageAveragngeValueMaximum DifferencePercentageAveragngeValueMaximum (String currency, Date startDate, Date endDate);
 
-    public Page<WenanceChallenge> findByCurr1ContainingAndDate(String currency, Date date, Pageable pageable);
+    public Page<WenanceChallenge> paginateCurrencyDate(String currency, Date date, Pageable pageable);
 
-    public Page<WenanceChallenge>findByCurr1Containing(String currency, Pageable pageable);
+    public Page<WenanceChallenge>paginateCurr1(String currency, Pageable pageable);
+
+    public Map<String, String> convertCurrencyUsd(String currency, String amnt) throws IOException;
+
+    public WenanceChallenge getCurrencyMaxDate(String currency);
 
 
 }
