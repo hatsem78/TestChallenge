@@ -75,7 +75,7 @@ Wenance Challenge
 ## Ejecuciòn del programa con docker-compose
     
     para ejecutar docker en formato develop:
-    docker-compose -f docker-compose.dev.yml up --build
+    docker-compose -f docker-compose.dev.yaml up --build
     
     Ejecutar los test
     docker-compose -f docker-compose.test.yaml up --build
