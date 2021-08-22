@@ -44,14 +44,14 @@ public class ScheduledTasks {
     @Scheduled(cron = "0/10 * * * * *")
     @Transactional()
     public void scheduleTaskTenSecondsETH() throws IOException {
-        logger.info("scheduleTaskTenSecondsETH Rate Task :: scheduleTaskTenSeconds", dateTimeFormatter.format(LocalDateTime.now()) );
+        logger.info("scheduleTaskTenSecondsETH Rate Task ETH/USD :: scheduleTaskTenSeconds", dateTimeFormatter.format(LocalDateTime.now()) );
         task("https://cex.io/api/last_price/ETH/USD");
     }
 
     @Scheduled(cron = "0/10 * * * * *")
     @Transactional()
     public void scheduleTaskTenSecondsBTC() throws IOException {
-        logger.info("scheduleTaskTenSecondsBTC Rate Task :: scheduleTaskTenSeconds", dateTimeFormatter.format(LocalDateTime.now()) );
+        logger.info("scheduleTaskTenSecondsBTC Rate Task BTC/USD :: scheduleTaskTenSeconds", dateTimeFormatter.format(LocalDateTime.now()) );
         task("https://cex.io/api/last_price/BTC/USD");
     }
 
@@ -100,6 +100,8 @@ public class ScheduledTasks {
         } finally {
             httpClient.close();
         }
+
+        logger.info("scheduleTaskTenSecondsETH Final Rate Task :: scheduleTaskTenSeconds", dateTimeFormatter.format(LocalDateTime.now()) );
     }
 
     public void saveWenanceChallenge(WenanceChallenge wenanceChallenge) {

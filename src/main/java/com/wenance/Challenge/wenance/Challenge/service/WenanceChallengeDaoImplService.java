@@ -88,7 +88,7 @@ public class WenanceChallengeDaoImplService implements WenanceChallengeDao {
     }
 
     public Map<String, String> convertCurrencyUsd(String currency, String amnt) throws IOException {
-        WenanceChallenge wenanceChallenge = new WenanceChallenge();        
+        WenanceChallenge wenanceChallenge = new WenanceChallenge();
         return convert("https://cex.io/api/convert/BTC/USD", currency, amnt);
     }
 
@@ -98,6 +98,7 @@ public class WenanceChallengeDaoImplService implements WenanceChallengeDao {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("amnt", amnt));
         httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+		String lastLpriceDb = (result==null)? "no hay valor para la moneda en la base" : result.getLprice().toString();
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
@@ -125,10 +126,10 @@ public class WenanceChallengeDaoImplService implements WenanceChallengeDao {
             JSONParser parser = new JSONParser(json);
             JSONObject obj = new JSONObject(parser.parseObject());
 
-            
+
             convertUsd.put("carrency", currency);
             convertUsd.put("convertUsd", "USD");
-            convertUsd.put("lastLpriceDb", result.getLprice().toString());
+            convertUsd.put("lastLpriceDb", lastLpriceDb);
             convertUsd.put("price", "");
 
             obj.forEach((key, value) -> {

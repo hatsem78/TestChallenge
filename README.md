@@ -33,9 +33,22 @@ Wenance Challenge
     estos se encuentran /wenanceChallenge/src/main/resources/wenanceChallenge.postman_collection.json
 
 # Configuraciòn para la base de datos
+    La configuraciòn default es la base de datos h2 que es una base en memoria para poder correr los test de forma local.
+    Para cambiar la base de datos
+    en el caso de querer usar una base datos mysql cambiar la siguiernte propiedad en application.properties
+    
+    # database init, supports mysql too
+    database=h2
+    
+    Si serquiere usar mysql cambiar la proiedad     
+    # database init, supports mysql too
+    database=mysql
+
+    y en el archivo application-mysql.properties
 
     Cambiar las iguientes propiedadees para la conceccion
-    #Coneccion mysql
+    #Coneccion mysql application-mysql.properties
+    EN el caso de crear una base de datos local o remoto
     spring.datasource.url=jdbc:mysql://localhost:3306/test?verifyServerCertificate=false&useSSL=true
     spring.datasource.username=root
     spring.datasource.password=root@2021
@@ -47,3 +60,22 @@ Wenance Challenge
     spring.jpa.hibernate.ddl-auto=create
     para que no lo cree tiene que estar seteado en none
     spring.jpa.hibernate.ddl-auto=create
+
+    Si se utiliza docker debe cambiar el archivo application-mysql.properties por:
+    Para utilizar una base de datos en base a docker
+    
+    # database init, supports mysql too
+    database=mysql
+    spring.datasource.url=${MYSQL_URL:jdbc:mysql://localhost/petclinic}
+    spring.datasource.username=${MYSQL_USER:petclinic}
+    spring.datasource.password=${MYSQL_PASS:petclinic}
+    # SQL is written to be idempotent so this is safe
+    spring.datasource.initialization-mode=always
+
+## Ejecuciòn del programa con docker-compose
+    
+    para ejecutar docker en formato develop:
+    docker-compose -f docker-compose.dev.yml up --build
+    
+    Ejecutar los test
+    docker-compose -f docker-compose.test.yaml up --build
