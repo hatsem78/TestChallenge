@@ -17,12 +17,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:9080/currency/GetPriceBitcoinEthereumTimestamp?currency=ETH&date=2021-08-18 19:07:11",
+					"raw": "http://localhost:8081/currency/GetPriceBitcoinEthereumTimestamp?currency=ETH&date=2021-08-18 19:07:11",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "9080",
+					"port": "8081",
 					"path": [
 						"currency",
 						"GetPriceBitcoinEthereumTimestamp"
@@ -52,12 +52,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9080/currency/GetDifferencePercentageAverageValueMaximum?startDate=2021-08-18 19:07:11&endDate=2021-08-18 19:08:00&currency=BTC",
+					"raw": "http://localhost:8081/currency/GetDifferencePercentageAverageValueMaximum?startDate=2021-08-18 19:07:11&endDate=2021-08-18 19:08:00&currency=BTC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "9080",
+					"port": "8081",
 					"path": [
 						"currency",
 						"GetDifferencePercentageAverageValueMaximum"
@@ -125,12 +125,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9080/currency/getAllBitcoinEthereum?currency=BTC",
+					"raw": "http://localhost:8081/currency/getAllBitcoinEthereum?currency=BTC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "9080",
+					"port": "8081",
 					"path": [
 						"currency",
 						"getAllBitcoinEthereum"
@@ -161,12 +161,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9080/currency/convertBTCOrETHToUSD?currency=BTC&amnt=2.2",
+					"raw": "http://localhost:8081/currency/convertBTCOrETHToUSD?currency=BTC&amnt=2.2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "9080",
+					"port": "8081",
 					"path": [
 						"currency",
 						"convertBTCOrETHToUSD"
