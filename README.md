@@ -1,5 +1,5 @@
-# wenanceChallenge
-Wenance Challenge
+# TestChallenge
+Test Challenge
 
 
 # Se crearon los siguientes enpoint .
@@ -30,7 +30,7 @@ Wenance Challenge
     para la carega de la base de datos se creo un componente ScheduledTasks que corre cada 10 segundo y guarda los datos
 
 # Los enpoint de ejemplo estan
-    estos se encuentran /wenanceChallenge/src/main/resources/wenanceChallenge.postman_collection.json, se pueden importar desde el postman.
+    estos se encuentran /testChallenge/src/main/resources/testChallenge.postman_collection.json, se pueden importar desde el postman.
 
 # Configuraciòn para la base de datos
     La configuraciòn default es la base de datos h2 que es una base en memoria para poder correr los test de forma local.
